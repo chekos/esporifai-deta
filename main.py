@@ -31,4 +31,4 @@ async def login(request: Request):
                           "page_title": "Home", 
                           "page_content": '<div id="login-button">Login</div><br/><a href="/">go back</a>'},
               }
-    return templates.TemplateResponse("login.html", context)
+    return templates.TemplateResponse("page.html", context)
