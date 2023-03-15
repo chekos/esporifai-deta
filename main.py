@@ -19,7 +19,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def index(request: Request):
     context = {
         "request": request,
-        "data": {"page_title": "Home", "page_content": "<h3>this works</h3>"},
+        "data": {"page_title": "Home", "page_content": '<div id="login-button">this works</div>'},
     }
     return templates.TemplateResponse("page.html", context)
 
