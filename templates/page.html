@@ -1,19 +1,5 @@
 {% extends "base.html" %}
-
 {% block title %}{{ data.page_title }}{% endblock %}
-{% block head %}
-{{ super() }}
-
-{% endblock %}
-
-{% block page_content %}
-
-{{data.page_content|safe}}
-
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
-
-
-{% endblock %}
+{% block head %} {{ super() }} {% endblock %} 
+{% block page_content %} {{data.page_content|safe}}{% endblock %}
+{% block scripts %} {{ super() }} {% endblock %}
