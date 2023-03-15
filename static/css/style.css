@@ -172,11 +172,30 @@ html {
   }
 
 /* Components */
-#login-button {
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-button {
+  display: inline-block;
   background-color: var(--green);
   color: var(--white);
-  padding: 10px 20px;
-  margin: 20px auto;
+  border-radius: var(--border-radius-pill);
+  font-weight: 700;
+  font-size: var(--fz-lg);
+  padding: var(--spacing-sm) var(--spacing-xl);
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    filter: brightness(1.1);
+}
+  
+  
   border-radius: 30px;
   display: inline-block;
 }
