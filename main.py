@@ -67,7 +67,7 @@ async def callback(request: Request, code: str = ""):
 
     if res.status_code == 200:
         auth_response = res.json()
-        for key, value in auth_response:
+        for key, value in auth_response.items():
             auth_base.insert(key=key, data=value)
         page_content = f'<main class="login-container"><h1>Success!</h1><pre>{res.json()}</pre></main>'
     else:
