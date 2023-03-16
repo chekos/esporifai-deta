@@ -8,7 +8,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from constants import CLIENT_ID, REDIRECT_URI
+from constants import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 from urllib import parse
 
 app = FastAPI()
@@ -57,7 +57,7 @@ async def callback(request: Request, code: str = ""):
     headers = {
         "content-type": "application/x-www-form-urlencoded",
     }
-    auth = HTTPBasicAuth("user", "pass")
+    auth = HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
     res = requests.post(
         url="https://accounts.spotify.com/api/token",
         data=data,
