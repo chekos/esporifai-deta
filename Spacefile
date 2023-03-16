@@ -9,3 +9,4 @@ micros:
       env:
         - name: CLIENT_ID
         - name: CLIENT_SECRET
+        - name: REDIRECT_URI
