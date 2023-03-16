@@ -57,7 +57,7 @@ async def callback(request: Request, code: str = ""):
     headers = {
         "content-type": "application/x-www-form-urlencoded",
     }
-    auth = HTTPBasicAuth("user", "pass")
+    auth = HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
     res = requests.post(
         url="https://accounts.spotify.com/api/token",
         data=data,
@@ -67,7 +67,7 @@ async def callback(request: Request, code: str = ""):
 
     if res.status_code == 200:
         auth_response = res.json()
-        for key, value in auth_response.json():
+        for key, value in auth_response:
             auth_base.insert(key=key, data=value)
         page_content = f'<main class="login-container"><h1>Success!</h1><pre>{res.json()}</pre></main>'
     else:
