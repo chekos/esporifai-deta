@@ -6,4 +6,5 @@ load_dotenv()
 
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-REDIRECT_URI = os.environ.get("REDIRECT_URI")
+BASE_URL = os.environ.get("BASE_URL", "http://localhost:8000")
+REDIRECT_URI = f"{BASE_URL}/callback"
