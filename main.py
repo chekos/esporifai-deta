@@ -1,4 +1,3 @@
-import json
 import random
 import string
 from urllib import parse
@@ -9,7 +8,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from constants import CLIENT_ID, REDIRECT_URI, BASE_URL
-from data import get_auth_code, get_refreshed_token, retrieve_token, get_user_profile
+from data import (
+    get_auth_code,
+    get_refreshed_token,
+    retrieve_token,
+    get_user_profile,
+    delete_auth_data,
+)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -50,35 +55,53 @@ async def login():
     return f"https://accounts.spotify.com/authorize?{querystring}"
 
 
-@app.get("/callback", response_class=RedirectResponse, status_code=200)
+@app.get("/callback", response_class=RedirectResponse)
 async def callback(code: str = ""):
     access_code = get_auth_code(code=code)
-
-    if access_code:
+    if not access_code:
+        print(access_code)
         return f"{BASE_URL}/me"
     else:
         return f"{BASE_URL}/login"
 
 
 @app.get("/refresh", response_class=RedirectResponse)
-def refresh(token: str):
+async def refresh(token: str):
     access_token = get_refreshed_token(token=token)
     if access_token:
-        return f"{BASE_URL}/me"
+        return RedirectResponse(f"{BASE_URL}/me")
     else:
-        return f"{BASE_URL}/login"
+        return RedirectResponse(f"{BASE_URL}/")
+
+
+@app.get("/logout", response_class=RedirectResponse)
+async def logout():
+    delete_auth_data()
+    return BASE_URL
 
 
 @app.get("/me", response_class=HTMLResponse)
-def get_me(request: Request):
-    data = get_user_profile()
-    data_html = f"<pre>{json.dumps(data, default=str, indent=4)}</pre>"
-    page_content = f'<main class="login-container"><h1>Me!</h1>{data_html}</main>'
+async def get_me(request: Request):
+    data_html = f'<div hx-get="/htmx/me" hx-trigger="load"><div></div></div>'
+    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
     context = {
         "request": request,
         "data": {
-            "page_title": "Login",
+            "page_title": "Profile",
             "page_content": page_content,
         },
     }
     return templates.TemplateResponse("page.html", context)
+
+
+@app.get("/htmx/me", response_class=HTMLResponse)
+async def get_html_me():
+    profile = get_user_profile()
+    html = f"""
+        <div>
+          <h1>{profile['display_name']}</h1>
+          <p>{profile['followers']['total']} Followers</p>
+            <img src={profile['images'][0]['url']} alt="Avatar"/>
+        </div>
+    """
+    return html

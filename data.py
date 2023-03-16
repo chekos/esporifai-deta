@@ -81,6 +81,11 @@ def retrieve_token():
     return access_token["value"]
 
 
+def delete_auth_data():
+    auth_base.delete("access_token")
+    auth_base.delete("refresh_token")
+
+
 def get_user_profile():
     url = f"{API_BASE_URL}/me"
     access_token = retrieve_token()
