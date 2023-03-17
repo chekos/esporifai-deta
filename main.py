@@ -177,7 +177,7 @@ async def get_playlists(request: Request):
 async def get_html_playlists(request: Request):
     data = get_user_playlists()
     context = {
-        "context": request,
+        "request": request,
         "data": data,
     }
     return templates.TemplateResponse("partials/playlists.html", context)
