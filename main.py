@@ -1,3 +1,4 @@
+import json
 import random
 import string
 from urllib import parse
@@ -7,13 +8,16 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from constants import CLIENT_ID, REDIRECT_URI, BASE_URL
+from constants import CLIENT_ID, REDIRECT_URI, BASE_URL, SCOPE
 from data import (
     get_auth_code,
     get_refreshed_token,
     retrieve_token,
     get_user_profile,
     delete_auth_data,
+    get_user_playlists,
+    get_user_top_artists,
+    get_user_top_tracks,
 )
 
 app = FastAPI()
@@ -43,7 +47,7 @@ async def index(request: Request):
 async def login():
     state = "".join(random.choices(string.ascii_uppercase + string.digits, k=16))
 
-    scope = "user-read-private user-read-email"
+    scope = SCOPE
     params = {
         "client_id": CLIENT_ID,
         "response_type": "code",
@@ -58,7 +62,7 @@ async def login():
 @app.get("/callback", response_class=RedirectResponse)
 async def callback(code: str = ""):
     access_code = get_auth_code(code=code)
-    if not access_code:
+    if access_code:
         print(access_code)
         return f"{BASE_URL}/me"
     else:
@@ -83,7 +87,7 @@ async def logout():
 @app.get("/me", response_class=HTMLResponse)
 async def get_me(request: Request):
     data_html = f'<div hx-get="/htmx/me" hx-trigger="load"><div></div></div>'
-    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/logout\';">Log out</button>{data_html}</main>'
     context = {
         "request": request,
         "data": {
@@ -104,4 +108,67 @@ async def get_html_me():
             <img src={profile['images'][0]['url']} alt="Avatar"/>
         </div>
     """
+    return html
+
+
+@app.get("/top-artists", response_class=HTMLResponse)
+async def get_top_artists(request: Request):
+    data_html = f'<div hx-get="/htmx/top-artists" hx-trigger="load"><div></div></div>'
+    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    context = {
+        "request": request,
+        "data": {
+            "page_title": "Top Artists",
+            "page_content": page_content,
+        },
+    }
+    return templates.TemplateResponse("page.html", context)
+
+
+@app.get("/htmx/top-artists", response_class=HTMLResponse)
+async def get_html_top_artists():
+    data = get_user_top_artists()
+    html = f"""<pre>{json.dumps(data, indent = 4, default=str)}</pre>"""
+    return html
+
+
+@app.get("/top-tracks", response_class=HTMLResponse)
+async def get_top_tracks(request: Request):
+    data_html = f'<div hx-get="/htmx/top-tracks" hx-trigger="load"><div></div></div>'
+    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    context = {
+        "request": request,
+        "data": {
+            "page_title": "Top Tracks",
+            "page_content": page_content,
+        },
+    }
+    return templates.TemplateResponse("page.html", context)
+
+
+@app.get("/htmx/top-tracks", response_class=HTMLResponse)
+async def get_html_top_tracks():
+    data = get_user_top_tracks()
+    html = f"""<pre>{json.dumps(data, indent = 4, default=str)}</pre>"""
+    return html
+
+
+@app.get("/playlists", response_class=HTMLResponse)
+async def get_playlists(request: Request):
+    data_html = f'<div hx-get="/htmx/playlists" hx-trigger="load"><div></div></div>'
+    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    context = {
+        "request": request,
+        "data": {
+            "page_title": "Top Tracks",
+            "page_content": page_content,
+        },
+    }
+    return templates.TemplateResponse("page.html", context)
+
+
+@app.get("/htmx/playlists", response_class=HTMLResponse)
+async def get_html_playlists():
+    data = get_user_playlists()
+    html = f"""<pre>{json.dumps(data, indent = 4, default=str)}</pre>"""
     return html

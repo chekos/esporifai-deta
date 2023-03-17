@@ -101,7 +101,7 @@ def get_user_profile():
         return None
 
 
-def get_user_playlists(limit: int):
+def get_user_playlists(limit: int = 20):
     url = f"{API_BASE_URL}/me/playlists?limit={limit}"
     access_token = retrieve_token()
     headers = {
@@ -125,6 +125,7 @@ def get_user_top_artists(time_range: str = "short_term"):
     }
 
     res = requests.get(url=url, headers=headers)
+    print(res.status_code)
     if res.status_code == 200:
         return res.json()
     else:
