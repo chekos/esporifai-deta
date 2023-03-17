@@ -2,8 +2,8 @@
 {% for artist in data["items"] %}
   <li>
     {{ artist.name }} | 
-    {{ artist.followers }} | 
-    {{ artist.genres }}
+    {{ artist.followers.total }} | 
+    {{ artist.genres | join(" ||| ") }}
   </li>
 {% endfor %}
 </ul>
