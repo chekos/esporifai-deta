@@ -1,0 +1,9 @@
+<ul>
+{% for artist in data.items %}
+  <li>
+    {{ artist.name }} | 
+    {{ artist.followers }} | 
+    {{ artist.genres }}
+  </li>
+{% endfor %}
+</ul>
