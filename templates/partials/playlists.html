@@ -1,0 +1,7 @@
+<ul>
+{% for playlist in data["items"] %}
+  <li>
+    {{ playlist.name }} | {{ playlist.tracks.total }} tracks
+  </li>
+{% endfor %}
+</ul>
