@@ -180,7 +180,7 @@ async def get_html_playlists(request: Request):
         "context": request,
         "data": data,
     }
-    return templates.TemplateResponse("partials/playlist.html", context)
+    return templates.TemplateResponse("partials/playlists.html", context)
     
     
     
