@@ -174,7 +174,15 @@ async def get_playlists(request: Request):
 
 
 @app.get("/htmx/playlists", response_class=HTMLResponse)
-async def get_html_playlists():
+async def get_html_playlists(request: Request):
     data = get_user_playlists()
-    html = f"""<pre>{json.dumps(data, indent = 4, default=str)}</pre>"""
-    return html
+    context = {
+        "context": request,
+        "data": data,
+    }
+    return templates.TemplateResponse("partials/playlist.html", context)
+    
+    
+    
+    
+    
