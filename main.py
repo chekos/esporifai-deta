@@ -152,8 +152,11 @@ async def get_top_tracks(request: Request):
 @app.get("/htmx/top-tracks", response_class=HTMLResponse)
 async def get_html_top_tracks():
     data = get_user_top_tracks()
-    html = f"""<pre>{json.dumps(data, indent = 4, default=str)}</pre>"""
-    return html
+    context = {
+        "request": request,
+        "data": data,
+    }
+    return templates.TemplateResponse("partials/top-artists.html", context)
 
 
 @app.get("/playlists", response_class=HTMLResponse)
