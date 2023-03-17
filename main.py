@@ -156,7 +156,7 @@ async def get_html_top_tracks():
         "request": request,
         "data": data,
     }
-    return templates.TemplateResponse("partials/top-artists.html", context)
+    return templates.TemplateResponse("partials/top-tracks.html", context)
 
 
 @app.get("/playlists", response_class=HTMLResponse)
