@@ -150,7 +150,7 @@ async def get_top_tracks(request: Request):
 
 
 @app.get("/htmx/top-tracks", response_class=HTMLResponse)
-async def get_html_top_tracks():
+async def get_html_top_tracks(request: Request):
     data = get_user_top_tracks()
     context = {
         "request": request,
