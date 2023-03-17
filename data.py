@@ -99,3 +99,78 @@ def get_user_profile():
         return res.json()
     else:
         return None
+
+
+def get_user_playlists(limit: int):
+    url = f"{API_BASE_URL}/me/playlists?limit={limit}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
+
+
+def get_user_top_artists(time_range: str = "short_term"):
+    url = f"{API_BASE_URL}/me/top/artists?time_range={time_range}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
+
+
+def get_user_top_tracks(time_range: str = "short_term"):
+    url = f"{API_BASE_URL}/me/top/tracks?time_range={time_range}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
+
+
+def get_playlist_by_id(playlist_id: str):
+    url = f"{API_BASE_URL}/playlists/{playlist_id}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
+
+
+def get_audio_features_from_ids(ids: str):
+    url = f"{API_BASE_URL}/audio-features?{ids}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
