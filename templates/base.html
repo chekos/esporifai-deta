@@ -21,15 +21,16 @@
     {% endblock %}
   </head>
   <body>
-    <div class="wrapper">
-      <div class="nav">
-        <a href="/me">Profile</a>
-        <a href="/top-artists">Top Artists</a>
-        <a href="/top-tracks">Top Tracks</a>
-        <a href="/playlists">Playlists</a>
-      </div>
-      <!-- Page content -->
-      <div id="content">{% block page_content %} {% endblock %}</div>
+    <!-- Page content -->
+    <div id="content" class="app">
+      <button
+        class="logout-button"
+        onClick="location.href = \'{BASE_URL}/logout\';"
+      >
+        Log out
+      </button>
+      {% block page_content %}{% endblock %}
     </div>
+    \
   </body>
 </html>

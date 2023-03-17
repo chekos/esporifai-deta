@@ -1,0 +1,18 @@
+<header class="styled-header user-header">
+  <div class="header__inner">
+    <img class="header__img" src="{{ profile.images[0].url }}" alt="Avatar" />
+    <div>
+      <div class="header__overline">Profile</div>
+      <h1 class="header__name">{{ profile.display_name }}</h1>
+      <p class="header__meta">
+        <span>
+          {{playlists.total}} Playlist{{ 's' if playlists.total > 1 else ''}}
+        </span>
+        <span>
+          {{ profile.followers.total }} Follower{{ 's' if
+          profile.followers.total > 1 else '' }}
+        </span>
+      </p>
+    </div>
+  </div>
+</header>

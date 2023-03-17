@@ -86,8 +86,8 @@ async def logout():
 
 @app.get("/me", response_class=HTMLResponse)
 async def get_me(request: Request):
-    data_html = f'<div hx-get="/htmx/me" hx-trigger="load"><div></div></div>'
-    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/logout\';">Log out</button>{data_html}</main>'
+    profile_header = f'<div hx-get="/htmx/me" hx-trigger="load"><div></div></div>'
+    page_content = profile_header
     context = {
         "request": request,
         "data": {
@@ -99,22 +99,21 @@ async def get_me(request: Request):
 
 
 @app.get("/htmx/me", response_class=HTMLResponse)
-async def get_html_me():
+async def get_html_me(request: Request):
     profile = get_user_profile()
-    html = f"""
-        <div>
-          <h1>{profile['display_name']}</h1>
-          <p>{profile['followers']['total']} Followers</p>
-            <img src={profile['images'][0]['url']} alt="Avatar"/>
-        </div>
-    """
-    return html
+    playlists = get_user_playlists()
+    context = {
+        "request": request,
+        "profile": profile,
+        "playlists": playlists
+    }
+    return templates.TemplateResponse("partials/profile-header.html", context)
 
 
 @app.get("/top-artists", response_class=HTMLResponse)
 async def get_top_artists(request: Request):
     data_html = f'<div hx-get="/htmx/top-artists" hx-trigger="load"><div></div></div>'
-    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    page_content = data_html
     context = {
         "request": request,
         "data": {
@@ -138,7 +137,7 @@ async def get_html_top_artists(request: Request):
 @app.get("/top-tracks", response_class=HTMLResponse)
 async def get_top_tracks(request: Request):
     data_html = f'<div hx-get="/htmx/top-tracks" hx-trigger="load"><div></div></div>'
-    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    page_content = data_html
     context = {
         "request": request,
         "data": {
@@ -162,7 +161,7 @@ async def get_html_top_tracks(request: Request):
 @app.get("/playlists", response_class=HTMLResponse)
 async def get_playlists(request: Request):
     data_html = f'<div hx-get="/htmx/playlists" hx-trigger="load"><div></div></div>'
-    page_content = f'<main class="login-container"><button class="logout-button" onClick="location.href = \'{BASE_URL}/\';">Log out</button>{data_html}</main>'
+    page_content = data_html
     context = {
         "request": request,
         "data": {
@@ -181,8 +180,3 @@ async def get_html_playlists(request: Request):
         "data": data,
     }
     return templates.TemplateResponse("partials/playlists.html", context)
-    
-    
-    
-    
-    
