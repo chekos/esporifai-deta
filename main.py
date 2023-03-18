@@ -103,16 +103,11 @@ async def get_html_me(request: Request):
 
 @app.get("/top-artists", response_class=HTMLResponse)
 async def get_top_artists(request: Request):
-    data_html = f'<div hx-get="/htmx/top-artists" hx-trigger="load"><div></div></div>'
-    page_content = data_html
     context = {
         "request": request,
-        "data": {
-            "page_title": "Top Artists",
-            "page_content": page_content,
-        },
+        "title": "Top Artists",
     }
-    return templates.TemplateResponse("page.html", context)
+    return templates.TemplateResponse("top-artists.html", context)
 
 
 @app.get("/htmx/top-artists", response_class=HTMLResponse)
@@ -127,16 +122,11 @@ async def get_html_top_artists(request: Request):
 
 @app.get("/top-tracks", response_class=HTMLResponse)
 async def get_top_tracks(request: Request):
-    data_html = f'<div hx-get="/htmx/top-tracks" hx-trigger="load"><div></div></div>'
-    page_content = data_html
     context = {
         "request": request,
-        "data": {
-            "page_title": "Top Tracks",
-            "page_content": page_content,
-        },
+        "title": "Top Tracks",
     }
-    return templates.TemplateResponse("page.html", context)
+    return templates.TemplateResponse("top-tracks.html", context)
 
 
 @app.get("/htmx/top-tracks", response_class=HTMLResponse)
@@ -151,16 +141,11 @@ async def get_html_top_tracks(request: Request):
 
 @app.get("/playlists", response_class=HTMLResponse)
 async def get_playlists(request: Request):
-    data_html = f'<div hx-get="/htmx/playlists" hx-trigger="load"><div></div></div>'
-    page_content = data_html
     context = {
         "request": request,
-        "data": {
-            "page_title": "Top Tracks",
-            "page_content": page_content,
-        },
+        "title": "Playlists",
     }
-    return templates.TemplateResponse("page.html", context)
+    return templates.TemplateResponse("playlists.html", context)
 
 
 @app.get("/htmx/playlists", response_class=HTMLResponse)
@@ -209,9 +194,31 @@ async def get_html_profile_top_tracks(request: Request, limit: int = 10):
 @app.get("/htmx/tracklist", response_class=HTMLResponse)
 async def get_html_artist_grid(request: Request, limit: int = 10):
     data = get_user_top_tracks()
-    tracklist = data['items'][0:limit]
+    tracklist = data["items"][0:limit]
     context = {
         "request": request,
         "tracklist": tracklist,
     }
     return templates.TemplateResponse("partials/tracklist.html", context)
+
+
+@app.get("/htmx/profile-playlists", response_class=HTMLResponse)
+async def get_html_profile_playlists(request: Request, limit: int = 10):
+    context = {
+        "request": request,
+        "title": "Playlists",
+        "see_all_link": "/playlists",
+        "htmx_endpoint": f"/htmx/playlist-grid?limit={limit}",
+    }
+    return templates.TemplateResponse("partials/styled-section.html", context)
+
+
+@app.get("/htmx/playlist-grid", response_class=HTMLResponse)
+async def get_html_playlist_grid(request: Request, limit: int = 10):
+    data = get_user_playlists()
+    playlists = data["items"][0:limit]
+    context = {
+        "request": request,
+        "playlists": playlists,
+    }
+    return templates.TemplateResponse("partials/playlist-grid.html", context)

@@ -1,0 +1,8 @@
+{% extends "page.html" %} {% block title %}{{ title }}{% endblock %} 
+{% block page_content %}
+<main>
+  <div hx-get="/htmx/profile-top-tracks?limit=50" hx-trigger="load">
+    <div></div>
+  </div>
+</main>
+{% endblock %}
