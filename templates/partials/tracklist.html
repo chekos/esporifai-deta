@@ -1,0 +1,26 @@
+<ul class="styled-tracklist">
+  {% for track in tracklist %}
+  <li class="track__item" key="{{ loop.index }}">
+    <div class="track__item__num">{{ loop.index }}</div>
+    <div class="track__item__title-group">
+      <div class="track__item__img">
+        <img src="{{ track.album.images[2].url }}" alt="{{ track.name }}" />
+      </div>
+      <div class="track__item__name-artist">
+        <div class="track__item__name overflow-ellipsis">{{ track.name }}</div>
+        <div class="track__item__artist overflow-ellipsis">
+          {% for artist in track.artists %}
+          <span key="{{ loop.index }}">
+            {{ artist.name }}{{ ", " if not loop.last else "" }}
+          </span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="track__item__album overflow-ellipsis">
+        {{ track.album_name }}
+      </div>
+      <div class="track__item__duration">{{ track.duration_ms }}</div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
