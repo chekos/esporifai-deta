@@ -86,27 +86,18 @@ async def logout():
 
 @app.get("/me", response_class=HTMLResponse)
 async def get_me(request: Request):
-    profile_header = f'<div hx-get="/htmx/me" hx-trigger="load"><div></div></div>'
-    page_content = profile_header
     context = {
         "request": request,
-        "data": {
-            "page_title": "Profile",
-            "page_content": page_content,
-        },
+        "title": "Profile",
     }
-    return templates.TemplateResponse("page.html", context)
+    return templates.TemplateResponse("profile.html", context)
 
 
 @app.get("/htmx/me", response_class=HTMLResponse)
 async def get_html_me(request: Request):
     profile = get_user_profile()
     playlists = get_user_playlists()
-    context = {
-        "request": request,
-        "profile": profile,
-        "playlists": playlists
-    }
+    context = {"request": request, "profile": profile, "playlists": playlists}
     return templates.TemplateResponse("partials/profile-header.html", context)
 
 
@@ -180,3 +171,25 @@ async def get_html_playlists(request: Request):
         "data": data,
     }
     return templates.TemplateResponse("partials/playlists.html", context)
+
+
+@app.get("/htmx/profile-top-artists", response_class=HTMLResponse)
+async def get_html_profile_top_artists(request: Request, limit: int = 10):
+    context = {
+        "request": request,
+        "title": "Top Artists",
+        "see_all_link": "/top-artists",
+        "htmx_endpoint": f"/htmx/artist-grid?limit={limit}",
+    }
+    return templates.TemplateResponse("partials/styled-section.html", context)
+
+
+@app.get("/htmx/artist-grid", response_class=HTMLResponse)
+async def get_html_artist_grid(request: Request, limit: int = 10):
+    data = get_user_top_artists()
+    artists = data['items'][0:limit]
+    context = {
+        "request": request,
+        "artists": artists,
+    }
+    return templates.TemplateResponse("partials/artist-grid.html", context)

@@ -1,0 +1,17 @@
+<ul class="artist-grid styled-grid">
+  {% for artist in artists %}
+  <li class="grid__item">
+    <div class="grid__item__inner">
+      <div class="grid__item__img">
+        <img
+          class="grid__artist__img"
+          src="{{ artist.images[0].url }}"
+          alt="{{ artist.name }}"
+        />
+      </div>
+      <h3 class="grid__item__name overflow-ellipsis">{{ artist.name }}</h3>
+      <p class="grid__item__label">Artist</p>
+    </div>
+  </li>
+  {% endfor %}
+</ul>

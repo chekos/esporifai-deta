@@ -1,0 +1,19 @@
+<section class="styled-section">
+  <div class="section__inner">
+    <div class="section__top">
+      <h2 class="section__heading">
+        {% if breadcrumb %}
+        <span class="section__breadcrumb"><a href="/me">Profile</a></span>
+        {% endif %} {% if see_all_link %}
+        <a href="{{ see_all_link }}">{{ title }}</a>
+        {% else %}
+        <span>{{ title }}</span>
+        {% endif %}
+      </h2>
+      {% if see_all_link %}
+      <a href="{{ see_all_link }}" class="section__see-all">See All</a>
+      {% endif %}
+    </div>
+    <div hx-get="{{ htmx_endpoint }}" hx-trigger="load" hx-swap="outerHTML"><div></div></div>
+  </div>
+</section>
