@@ -18,6 +18,7 @@ from data import (
     get_user_playlists,
     get_user_top_artists,
     get_user_top_tracks,
+    get_playlist_by_id
 )
 
 app = FastAPI()
@@ -156,6 +157,28 @@ async def get_html_playlists(request: Request):
         "data": data,
     }
     return templates.TemplateResponse("partials/playlists.html", context)
+
+@app.get("/playlists/{playlist_id}", response_class=HTMLResponse)
+async def get_html_laylist_by_id(request: Request, playlist_id: str):
+    data = get_playlist_by_id(playlist_id=playlist_id)
+    context = {
+        "request": request,
+        "title": data['name'],
+        "playlist_id": playlist_id,
+    }
+    return templates.TemplateResponse("playlist.html", context)
+
+
+@app.get("/htmx/playlist/{playlist_id}", response_class=HTMLResponse)
+async def get_html_playlists(request: Request, playlist_id: str):
+    data = get_playlist_by_id(playlist_id=playlist_id)
+    tracklist = [item["track"] for item in data["tracks"]["items"]]
+    context = {
+        "request": request,
+        "tracklist": tracklist,
+        "header": data["name"]
+    }
+    return templates.TemplateResponse("partials/tracklist.html", context)
 
 
 @app.get("/htmx/profile-top-artists", response_class=HTMLResponse)

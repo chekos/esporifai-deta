@@ -1,3 +1,6 @@
+{% if header %}
+<h2>{{ header }}</h2>
+{% endif %}
 <ul class="styled-tracklist">
   {% for track in tracklist %}
   <li class="track__item" key="{{ loop.index }}">

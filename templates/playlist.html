@@ -1,0 +1,8 @@
+{% extends "page.html" %} {% block title %}{{ title }}{% endblock %} 
+{% block page_content %}
+<main>
+  <div hx-get="/htmx/playlist/{{ playlist_id }}" hx-trigger="load">
+    <div></div>
+  </div>
+</main>
+{% endblock %}
