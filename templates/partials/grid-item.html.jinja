@@ -1,0 +1,17 @@
+<li class="grid__item">
+    {% if _type == "playlist" %}
+    <a class="grid__item__inner" href="/playlists/{{ _item.id }}">
+        {% else %}
+        <div class="grid__item__inner">
+            {% endif %}
+            <div class="grid__item__img">
+                <img class="grid__{{ _type }}__img" src="{{ _item.images[0].url }}" alt="{{ _item.name }}" />
+            </div>
+            <h3 class="grid__item__name overflow-ellipsis">{{ _item.name }}</h3>
+            <p class="grid__item__label">{{ _type|title }}</p>
+            {% if _type == "playlist" %}
+    </a>
+    {% else %}
+    </div>
+    {% endif %}
+</li>

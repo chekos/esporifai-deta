@@ -18,7 +18,7 @@ from data import (
     get_user_playlists,
     get_user_top_artists,
     get_user_top_tracks,
-    get_playlist_by_id
+    get_playlist_by_id,
 )
 
 app = FastAPI()
@@ -158,12 +158,13 @@ async def get_html_playlists(request: Request):
     }
     return templates.TemplateResponse("partials/playlists.html", context)
 
+
 @app.get("/playlists/{playlist_id}", response_class=HTMLResponse)
 async def get_html_laylist_by_id(request: Request, playlist_id: str):
     data = get_playlist_by_id(playlist_id=playlist_id)
     context = {
         "request": request,
-        "title": data['name'],
+        "title": data["name"],
         "playlist_id": playlist_id,
     }
     return templates.TemplateResponse("playlist.html", context)
@@ -173,11 +174,7 @@ async def get_html_laylist_by_id(request: Request, playlist_id: str):
 async def get_html_playlists(request: Request, playlist_id: str):
     data = get_playlist_by_id(playlist_id=playlist_id)
     tracklist = [item["track"] for item in data["tracks"]["items"]]
-    context = {
-        "request": request,
-        "tracklist": tracklist,
-        "header": data["name"]
-    }
+    context = {"request": request, "tracklist": tracklist, "header": data["name"]}
     return templates.TemplateResponse("partials/tracklist.html", context)
 
 
@@ -187,20 +184,24 @@ async def get_html_profile_top_artists(request: Request, limit: int = 10):
         "request": request,
         "title": "Top Artists",
         "see_all_link": "/top-artists",
-        "htmx_endpoint": f"/htmx/artist-grid?limit={limit}",
+        "htmx_endpoint": f"/htmx/item-grid?limit={limit}&grid_type=artist",
     }
     return templates.TemplateResponse("partials/styled-section.html", context)
 
 
-@app.get("/htmx/artist-grid", response_class=HTMLResponse)
-async def get_html_artist_grid(request: Request, limit: int = 10):
-    data = get_user_top_artists()
-    artists = data["items"][0:limit]
+@app.get("/htmx/item-grid", response_class=HTMLResponse)
+async def get_html_artist_grid(request: Request, grid_type: str, limit: int = 10):
+    if grid_type == "artist":
+        data = get_user_top_artists()
+    else:
+        data = get_user_playlists()
+    itemlist = data["items"][0:limit]
     context = {
         "request": request,
-        "artists": artists,
+        "itemlist": itemlist,
+        "grid_type": grid_type,
     }
-    return templates.TemplateResponse("partials/artist-grid.html", context)
+    return templates.TemplateResponse("partials/item-grid.html.jinja", context)
 
 
 @app.get("/htmx/profile-top-tracks", response_class=HTMLResponse)
@@ -231,17 +232,6 @@ async def get_html_profile_playlists(request: Request, limit: int = 10):
         "request": request,
         "title": "Playlists",
         "see_all_link": "/playlists",
-        "htmx_endpoint": f"/htmx/playlist-grid?limit={limit}",
+        "htmx_endpoint": f"/htmx/item-grid?limit={limit}&grid_type=playlist",
     }
     return templates.TemplateResponse("partials/styled-section.html", context)
-
-
-@app.get("/htmx/playlist-grid", response_class=HTMLResponse)
-async def get_html_playlist_grid(request: Request, limit: int = 10):
-    data = get_user_playlists()
-    playlists = data["items"][0:limit]
-    context = {
-        "request": request,
-        "playlists": playlists,
-    }
-    return templates.TemplateResponse("partials/playlist-grid.html", context)

@@ -1,0 +1,7 @@
+<ul class="{{ grid_type }}-grid styled-grid">
+  {% for _item in itemlist %}
+  {% with _index = loop.index, _type = grid_type %}
+  {% include "partials/grid-item.html.jinja" %}
+  {% endwith %}
+  {% endfor %}
+</ul>
