@@ -12,4 +12,4 @@ REDIRECT_URI = f"{BASE_URL}/callback"
 basic_auth = HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
 
 API_BASE_URL = "https://api.spotify.com/v1"
-SCOPE = "user-read-private user-read-email user-top-read"
+SCOPE = "user-read-recently-played user-top-read user-library-read playlist-read-collaborative playlist-read-private user-follow-read"

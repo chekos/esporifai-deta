@@ -14,6 +14,8 @@
       <a href="{{ see_all_link }}" class="section__see-all">See All</a>
       {% endif %}
     </div>
-    <div hx-get="{{ htmx_endpoint }}" hx-trigger="load" hx-swap="outerHTML"><div></div></div>
+    <div hx-get="{{ htmx_endpoint }}" hx-trigger="load" hx-swap="outerHTML">
+      <div></div>
+    </div>
   </div>
 </section>

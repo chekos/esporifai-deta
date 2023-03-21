@@ -1,3 +1,5 @@
+from datetime import datetime as dt
+
 import requests
 from deta import Base
 
@@ -170,6 +172,22 @@ def get_audio_features_from_ids(ids: str):
     }
 
     res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
+
+
+def get_user_recently_played(limit: int = 50):
+    url = f"{API_BASE_URL}/me/player/recently-played"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+    params = {"limit": limit, "before": int(dt.now().timestamp() * 1000)}
+
+    res = requests.get(url=url, headers=headers, params=params)
     if res.status_code == 200:
         return res.json()
     else:
