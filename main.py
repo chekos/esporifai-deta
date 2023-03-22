@@ -37,12 +37,10 @@ async def index(request: Request):
 
     context = {
         "request": request,
-        "data": {
-            "page_title": "Login",
-            "page_content": page_content,
-        },
+        "title": "Login",
+        "content": page_content,
     }
-    return templates.TemplateResponse("page.html.jinja", context)
+    return templates.TemplateResponse("landing.html.jinja", context)
 
 
 @app.get("/login", response_class=RedirectResponse)
@@ -109,7 +107,7 @@ async def get_top_artists(request: Request):
         "request": request,
         "title": "Top Artists",
     }
-    return templates.TemplateResponse("top-artists.html", context)
+    return templates.TemplateResponse("top-artists.html.jinja", context)
 
 
 @app.get("/top-tracks", response_class=HTMLResponse)
@@ -118,7 +116,7 @@ async def get_top_tracks(request: Request):
         "request": request,
         "title": "Top Tracks",
     }
-    return templates.TemplateResponse("top-tracks.html", context)
+    return templates.TemplateResponse("top-tracks.html.jinja", context)
 
 
 @app.get("/playlists", response_class=HTMLResponse)
@@ -127,7 +125,7 @@ async def get_playlists(request: Request):
         "request": request,
         "title": "Playlists",
     }
-    return templates.TemplateResponse("playlists.html", context)
+    return templates.TemplateResponse("playlists.html.jinja", context)
 
 
 @app.get("/htmx/playlists", response_class=HTMLResponse)
@@ -137,7 +135,7 @@ async def get_html_playlists(request: Request):
         "request": request,
         "data": data,
     }
-    return templates.TemplateResponse("partials/playlists.html", context)
+    return templates.TemplateResponse("partials/playlists.html.jinja", context)
 
 
 @app.get("/playlists/{playlist_id}", response_class=HTMLResponse)
@@ -148,7 +146,7 @@ async def get_html_laylist_by_id(request: Request, playlist_id: str):
         "title": data["name"],
         "playlist_id": playlist_id,
     }
-    return templates.TemplateResponse("playlist.html", context)
+    return templates.TemplateResponse("playlist.html.jinja", context)
 
 
 @app.get("/htmx/playlist/{playlist_id}", response_class=HTMLResponse)

@@ -1,4 +1,4 @@
-{% extends "page.html" %} {% block title %}{{ title }}{% endblock %} 
+{% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
 {% block page_content %}
 <main>
   <div hx-get="/htmx/profile-playlists?limit=50" hx-trigger="load">

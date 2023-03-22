@@ -1,5 +1,5 @@
-{% extends "page.html" %} {% block title %}{{ title }}{% endblock %}
-{% block page_content %}
+{% extends "base.html.jinja" %} {% block title %}{{ title }}{% endblock %}
+{% block content %}
 <div hx-get="/htmx/me" hx-trigger="load">
   <div></div>
 </div>

@@ -1,5 +1,5 @@
-{% extends "page.html" %} {% block title %}{{ title }}{% endblock %} 
-{% block page_content %}
+{% extends "base.html.jinja" %} {% block title %}{{ title }}{% endblock %}
+{% block content %}
 <main>
   <div hx-get="/htmx/profile-top-artists?limit=50" hx-trigger="load">
     <div></div>
