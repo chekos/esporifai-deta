@@ -192,3 +192,18 @@ def get_user_recently_played(limit: int = 50):
         return res.json()
     else:
         return None
+
+
+def get_track_by_id(trackid: str):
+    url = f"{API_BASE_URL}/tracks/{trackid}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None

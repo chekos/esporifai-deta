@@ -20,6 +20,7 @@ from data import (
     get_user_top_tracks,
     get_playlist_by_id,
     get_user_recently_played,
+    get_track_by_id,
 )
 
 app = FastAPI()
@@ -233,3 +234,10 @@ async def get_html_recently_played(request: Request, limit: int = 50):
     tracklist = [item["track"] for item in data["items"]]
     context = {"request": request, "tracklist": tracklist}
     return templates.TemplateResponse("partials/tracklist.html.jinja", context)
+
+
+@app.get("/track/{trackid}", response_class=HTMLResponse)
+async def get_html_track_by_id(request: Request, trackid: str):
+    track = get_track_by_id(trackid=trackid)
+    context = {"request": request, "track": track}
+    return templates.TemplateResponse("track.html.jinja", context)

@@ -1,0 +1,7 @@
+{% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <h2>{{ track.name }}</h2>
+    {% include 'partials/track.html.jinja' %}
+</main>
+{% endblock %}
