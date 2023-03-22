@@ -1,10 +1,20 @@
-{% extends "page.html" %} {% block title %}{{ title }}{% endblock %} 
+{% extends "page.html" %} {% block title %}{{ title }}{% endblock %}
 {% block page_content %}
-<div hx-get="/htmx/me" hx-trigger="load"><div></div></div>
+<div hx-get="/htmx/me" hx-trigger="load">
+  <div></div>
+</div>
 <main>
-  <div hx-get="/htmx/profile-top-artists?limit=10" hx-trigger="load"><div></div></div>
-  <div hx-get="/htmx/profile-top-tracks?limit=10" hx-trigger="load"><div></div></div>
-  <div hx-get="/htmx/profile-playlists?limit=10" hx-trigger="load"><div></div></div>
-  <div hx-get="/htmx/profile-recently-played?limit=50" hx-trigger="load"><div></div></div>
+  <div hx-get="/htmx/profile-top-artists?limit=10" hx-trigger="load">
+    <div></div>
+  </div>
+  <div hx-get="/htmx/profile-top-tracks?limit=10" hx-trigger="load">
+    <div></div>
+  </div>
+  <div hx-get="/htmx/profile-playlists?limit=10" hx-trigger="load">
+    <div></div>
+  </div>
+  <div hx-get="/htmx/profile-recently-played?limit=50" hx-trigger="load">
+    <div></div>
+  </div>
 </main>
 {% endblock %}

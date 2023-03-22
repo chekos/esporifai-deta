@@ -42,7 +42,7 @@ async def index(request: Request):
             "page_content": page_content,
         },
     }
-    return templates.TemplateResponse("page.html", context)
+    return templates.TemplateResponse("page.html.jinja", context)
 
 
 @app.get("/login", response_class=RedirectResponse)
@@ -92,7 +92,7 @@ async def get_me(request: Request):
         "request": request,
         "title": "Profile",
     }
-    return templates.TemplateResponse("profile.html", context)
+    return templates.TemplateResponse("profile.html.jinja", context)
 
 
 @app.get("/htmx/me", response_class=HTMLResponse)
@@ -100,7 +100,7 @@ async def get_html_me(request: Request):
     profile = get_user_profile()
     playlists = get_user_playlists()
     context = {"request": request, "profile": profile, "playlists": playlists}
-    return templates.TemplateResponse("partials/profile-header.html", context)
+    return templates.TemplateResponse("partials/profile-header.html.jinja", context)
 
 
 @app.get("/top-artists", response_class=HTMLResponse)
