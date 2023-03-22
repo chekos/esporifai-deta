@@ -17,11 +17,15 @@
 
 <body>
   <!-- Page content -->
-  <div id="content" class="app">
-    <button class="logout-button" onClick="location.href = \'{BASE_URL}/logout\';">
-      Log out
-    </button>
-    {% block content %}{% endblock %}
+  <div id="root">
+    <div id="content" class="app">
+      <div class="app-header">
+        <button class="logout-button" onClick="location.href = \'{BASE_URL}/logout\';">
+          Log out
+        </button>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
   </div>
 </body>
 
