@@ -3,9 +3,9 @@
 {{ super() }}
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
-   const download = () => {
-      html2canvas(document.querySelector('#track')).then(canvas => {
-         document.querySelector("#track").appendChild(canvas);
+   function takeScreenshot() {
+     html2canvas(document.querySelector("#track")).then(function(canvas) {
+        document.body.appendChild(canvas);
       });
    }
 </script>
@@ -28,8 +28,8 @@
             <div class="track__album__name">{{ track.album.name }}</div>
         </div>
     </div>
-</main>
-<button onclick="download()">
+<button onclick="takeScreenshot()">
 Download
 </button>
+</main>
 {% endblock %}
