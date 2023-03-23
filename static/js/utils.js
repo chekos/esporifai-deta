@@ -1,5 +1,7 @@
-function takeScreenshot() {
-     html2canvas(document.querySelector("#track")).then(function(canvas) {
-        document.body.appendChild(canvas);
-      });
-   }
+async function takeScreenshot() {
+  var trackDiv = document.querySelector("#track");
+  var trackContainer = document.querySelector("#track-container");
+  html2canvas(trackDiv, { allowTaint: true }).then((canvas) => {
+    trackContainer.appendChild(canvas);
+  });
+}

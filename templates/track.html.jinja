@@ -1,8 +1,8 @@
 {% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
 {% block content %}
 <main>
-    <div id="track" class="track-container">
-        <div class="track__inner">
+    <div class="track-container">
+        <div id="track" class="track__inner">
             <img src="{{ track.album.images[1].url }}" alt="{{ track.name }}" />
             {% set mins = track.duration_ms // 60000 %}{% set secs = track.duration_ms % 60000 // 1000 %}
             <div class="track__info__group">
@@ -17,8 +17,11 @@
             <div class="track__album__name">{{ track.album.name }}</div>
         </div>
     </div>
-<button onclick="takeScreenshot()">
-Download
-</button>
+    <div id="track-container" class="track__inner"></div>
+
+    <button onclick="takeScreenshot()">
+        Download
+    </button>
+    <canvas id="canvas"></canvas>
 </main>
 {% endblock %}
