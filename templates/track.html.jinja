@@ -1,7 +1,17 @@
 {% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
+{% block head %}
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+   const download = () => {
+      html2canvas(document.querySelector('#track')).then(canvas => {
+         document.body.appendChild(canvas);
+      });
+   }
+</script>
+{% endblock %}
 {% block content %}
 <main>
-    <div class="track-container">
+    <div id="track" class="track-container">
         <div class="track__inner">
             <img src="{{ track.album.images[1].url }}" alt="{{ track.name }}" />
             {% set mins = track.duration_ms // 60000 %}{% set secs = track.duration_ms % 60000 // 1000 %}
@@ -18,4 +28,7 @@
         </div>
     </div>
 </main>
+<button onclick="download()">
+Download
+</button>
 {% endblock %}
