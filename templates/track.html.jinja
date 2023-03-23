@@ -1,5 +1,6 @@
 {% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
 {% block head %}
+{{ super() }}
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
    const download = () => {
