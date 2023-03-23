@@ -1,15 +1,4 @@
 {% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
-{% block head %}
-{{ super() }}
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-<script>
-   function takeScreenshot() {
-     html2canvas(document.querySelector("#track")).then(function(canvas) {
-        document.body.appendChild(canvas);
-      });
-   }
-</script>
-{% endblock %}
 {% block content %}
 <main>
     <div id="track" class="track-container">
