@@ -1,26 +1,21 @@
 {% extends "base.html.jinja" %}{% block title %}{{ title }}{% endblock %}
 {% block content %}
 <main>
-    <div class="styled-grid">
-        <ul class="styled-grid">
-            <div class="grid__item__inner">
-                <div style="width: {{ track.album.images[1].width }}px">
-                    <img src="{{ track.album.images[1].url }}" alt="{{ track.name }}" />
-                </div>
-                {% set mins = track.duration_ms // 60000 %}{% set secs = track.duration_ms % 60000 // 1000 %}
-                <h2>{{ track.name }}</h2><small>{{ '%02d' % mins }}:{{ '%02d' % secs }}</small>
-                <ul class="styled-grid">
-                    <div class="grid__item__inner">
-                        {% for artist in track.artists %}
-                        <h4>{{ artist.name }}</h4>
-                        {% endfor %}
-                    </div>
-                </ul>
-                <div>
-                    {{ track.album.name }}
-                </div>
+    <div class="track-container">
+        <div class="track__inner">
+            <img src="{{ track.album.images[1].url }}" alt="{{ track.name }}" />
+            {% set mins = track.duration_ms // 60000 %}{% set secs = track.duration_ms % 60000 // 1000 %}
+            <div class="track__info__group">
+                <h2 class="track__name">{{ track.name }}</h2>
+                <small class="track__duration">{{ '%02d' % mins }}:{{ '%02d' % secs }}</small>
             </div>
+            <div class="track__artists">
+                {% for artist in track.artists %}
+                <div class="track__artist__name">{{ artist.name }}</div>
+                {% endfor %}
+            </div>
+            <div class="track__album__name">{{ track.album.name }}</div>
+        </div>
     </div>
-    </ul>
 </main>
 {% endblock %}

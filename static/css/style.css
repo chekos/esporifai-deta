@@ -418,6 +418,38 @@ ul.styled-grid {
   display: none;
 }
 
+.track-container {
+  position: relative;
+  margin: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.track__inner {
+  position: absolute;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+  background-color: var(--grey);
+  outline: solid 1px var(--light-grey);
+}
+
+.track__info__group {
+  padding: var(--spacing-xs);
+}
+.track__name {
+  margin: 0 auto 0 auto;
+}
+
+.track__artists {
+  padding: var(--spacing-xs);
+}
+
+.track__artist__name {
+  padding: var(--spacing-xxs);
+}
+
+.track__album__name {
+  padding: var(--spacing-xs);
+}
 @media screen and (min-width: 768px) {
   header {
     min-height: 340px !important;
