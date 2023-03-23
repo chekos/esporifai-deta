@@ -5,7 +5,7 @@
 <script>
    const download = () => {
       html2canvas(document.querySelector('#track')).then(canvas => {
-         document.body.appendChild(canvas);
+         document.querySelector("#track").appendChild(canvas);
       });
    }
 </script>
