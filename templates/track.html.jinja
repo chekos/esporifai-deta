@@ -15,6 +15,9 @@
                 {% endfor %}
             </div>
             <div class="track__album__name">{{ track.album.name }}</div>
+            <div class="popularity-container">
+                <div class="popularity-value" style="width:{{ track.popularity }}%"></div>
+            </div>
         </div>
     </div>
     <div id="track-container" class="track__inner"></div>

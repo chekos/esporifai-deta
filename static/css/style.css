@@ -448,11 +448,25 @@ ul.styled-grid {
 .track__artist__name {
   padding: var(--spacing-xxs);
   width: 50%;
+  text-align: center;
+  border: solid 0.05em var(--light-grey);
 }
 
 .track__album__name {
   padding: var(--spacing-xs);
 }
+
+.popularity-container {
+  height: 10px;
+  width: 100%;
+  background-color: var(--near-black);
+}
+
+.popularity-value {
+  height: 10px;
+  background-color: var(--light-grey);
+}
+
 @media screen and (min-width: 768px) {
   header {
     min-height: 340px !important;
