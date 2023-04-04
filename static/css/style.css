@@ -441,10 +441,13 @@ ul.styled-grid {
 
 .track__artists {
   padding: var(--spacing-xs);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .track__artist__name {
   padding: var(--spacing-xxs);
+  width: 50%;
 }
 
 .track__album__name {
