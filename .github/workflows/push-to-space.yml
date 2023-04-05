@@ -15,5 +15,6 @@ jobs:
         run: |
           curl -fsSL https://get.deta.dev/space-cli.sh | sh
           echo '/home/runner/.detaspace/bin' >> $GITHUB_PATH
+          export PATH="/home/runner/.detaspace/bin:$PATH"
           space link --id $PROJECT_ID
           space push
