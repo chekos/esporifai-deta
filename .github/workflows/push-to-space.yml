@@ -1,15 +1,18 @@
 name: Push to Space
 on: workflow_dispatch
 
+env:
+  SPACE_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  
 jobs:
   push-to-space:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Deta Space Deployment Github Action
-        uses: neobrains/space-deployment-github-action@v0.3
-        with:
-          access_token: ${{ secrets.ACCESS_TOKEN }}
-          project_id: ${{ secrets.PROJECT_ID }}
-          space_push: true
-          list_on_discovery: false
+      - name: Install Deta Space CLI & set SPACE_ACCESS_TOKEN environment variable
+        run: |
+          curl -fsSL https://get.deta.dev/space-cli.sh | sh
+          echo '/home/runner/.detaspace/bin' >> $GITHUB_PATH
+          space link --id $PROJECT_ID
+          space push
