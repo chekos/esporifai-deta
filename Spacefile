@@ -1,9 +1,9 @@
 # Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
 v: 0
+icon: static/icon.png
 micros:
   - name: esporifai-deta
     src: .
-    icon: static/icon.png
     engine: python3.9
     primary: true
     presets:
