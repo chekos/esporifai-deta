@@ -10,3 +10,4 @@ micros:
         - name: CLIENT_ID
         - name: CLIENT_SECRET
         - name: BASE_URL
+    dev: .venv/bin/uvicorn main:app --reload

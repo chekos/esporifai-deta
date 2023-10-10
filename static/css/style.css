@@ -426,7 +426,6 @@ ul.styled-grid {
 }
 
 .track__inner {
-  position: absolute;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
   background-color: var(--grey);
   outline: solid 1px var(--light-grey);
@@ -447,7 +446,7 @@ ul.styled-grid {
 
 .track__artist__name {
   padding: var(--spacing-xxs);
-  width: 50%;
+  width: 100%;
   text-align: center;
   border: solid 0.05em var(--light-grey);
 }
