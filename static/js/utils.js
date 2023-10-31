@@ -9,7 +9,8 @@ function captureAndAppend() {
             img.src = dataUrl;
 
             // Append the img to a container, for example, to the body or another div
-            document.body.appendChild(img);
+            const container = document.getElementById("track");
+            container.appendChild(img);
         })
         .catch(function (error) {
             console.error('Error capturing image:', error);
