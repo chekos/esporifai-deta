@@ -516,7 +516,8 @@ ul.styled-grid {
 .track__inner {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
   background-color: var(--grey);
-  outline: solid 1px var(--light-grey);
+  /* outline: solid 1px var(--light-grey); */
+  padding: var(--spacing-xxs);
 }
 
 .track__info__group {
