@@ -1,11 +1,16 @@
 function captureAndDownload() {
-  const trackDiv = document.getElementById("track");
+    const trackDiv = document.getElementById("track");
 
-  html2canvas(trackDiv, { useCORS: true }).then(function (canvas) {  // Removed scale for testing
-    const imgData = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = imgData;
-    a.download = "track_image.png";
-    a.click();
-  });
+    // Using dom-to-image to capture the element
+    domtoimage.toPng(trackDiv)
+        .then(function (dataUrl) {
+            // Create a temporary anchor element to download the image
+            const a = document.createElement("a");
+            a.href = dataUrl;
+            a.download = "track_image.png";
+            a.click();
+        })
+        .catch(function (error) {
+            console.error('Error capturing image:', error);
+        });
 }
