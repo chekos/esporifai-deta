@@ -3,7 +3,7 @@
 <main>
     <div id="track-container" class="track-container">
         <div id="track" class="track__inner">
-            <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}" />
+            <img src="{{ track.album.images[1].url }}" alt="{{ track.name }}" />
             {% set mins = track.duration_ms // 60000 %}{% set secs = track.duration_ms % 60000 // 1000 %}
             <div class="track__info__group">
                 <h2 class="track__name">{{ track.name }}</h2>
