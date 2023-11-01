@@ -4,10 +4,10 @@ function captureAndDownload() {
   // Using dom-to-image to capture the element
   domtoimage
     .toPng(trackDiv, {
-      width: trackDiv.clientWidth * 2,
-      height: trackDiv.clientHeight * 2,
+      width: trackDiv.clientWidth * 4,
+      height: trackDiv.clientHeight * 4,
       style: {
-        transform: "scale(2)",
+        transform: "scale(4)",
         transformOrigin: "top left"
     }})
     .then(function (dataUrl) {
