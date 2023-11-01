@@ -15,11 +15,50 @@
                 {% endfor %}
             </div>
             <div class="track__album__name">{{ track.album.name }}</div>
+            <div id="popularityPlot"></div>
+
             <div class="popularity-container">
-                <div class="popularity-value" style="width:{{ track.popularity }}%"></div>
             </div>
         </div>
     </div>
     <button onclick="captureAndDownload()"><a class="login-button">Download image</a></button>
 </main>
+<script type="module">
+    function generateObjectsWithColor(share) {
+        if (share < 1 || share > 100) {
+            throw new Error("Share parameter must be between 1 and 100");
+        }
+
+        const result = [];
+
+        for (let index = 1; index <= 100; index++) {
+            const color = index <= share;
+            result.push({ index, color });
+        }
+
+        return result;
+    }
+
+    function popularityPlot(popularity) {
+        const div = document.querySelector("#popularityPlot");
+
+        const plot = Plot.plot({
+            width: div.clientWidth,
+            height: 15,
+            x: { domain: [0, 100], label: "", axis: null },
+            marks: [
+                Plot.tickX(generateObjectsWithColor(popularity), {
+                    x: "index",
+                    stroke: "color",
+                    strokeWidth: div.clientWidth / 110,
+                }),
+            ],
+        });
+
+        div.append(plot);
+    }
+
+    popularityPlot({{ track.popularity }})
+
+</script>
 {% endblock %}
