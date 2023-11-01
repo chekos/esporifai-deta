@@ -1,20 +1,22 @@
-function captureAndDownload() {
+function captureAndDownload(imageName) {
   const trackDiv = document.getElementById("track");
-
+  const imageSlug = slugify(imageName);
+  const scale = 5;
   // Using dom-to-image to capture the element
   domtoimage
     .toPng(trackDiv, {
-      width: trackDiv.clientWidth * 4,
-      height: trackDiv.clientHeight * 4,
+      width: trackDiv.clientWidth * scale,
+      height: trackDiv.clientHeight * scale,
       style: {
-        transform: "scale(4)",
-        transformOrigin: "top left"
-    }})
+        transform: `scale(${scale})`,
+        transformOrigin: "top left",
+      },
+    })
     .then(function (dataUrl) {
       // Create a temporary anchor element to download the image
       const a = document.createElement("a");
       a.href = dataUrl;
-      a.download = "track_image.png";
+      a.download = `${imageSlug}.png`;
       a.click();
     })
     .catch(function (error) {
@@ -53,4 +55,15 @@ function popularityPlot(popularity) {
   const div = document.querySelector("#popularityPlot");
   div.append(plot);
   console.log(generateObjectsWithColor(20));
+}
+
+function slugify(str) {
+  return String(str)
+    .normalize("NFKD") // split accented characters into their base characters and diacritical marks
+    .replace(/[\u0300-\u036f]/g, "") // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+    .trim() // trim leading or trailing whitespace
+    .toLowerCase() // convert to lowercase
+    .replace(/[^a-z0-9 -]/g, "") // remove non-alphanumeric characters
+    .replace(/\s+/g, "-") // replace spaces with hyphens
+    .replace(/-+/g, "-"); // remove consecutive hyphens
 }
