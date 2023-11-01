@@ -3,7 +3,7 @@ function captureAndDownload() {
 
   // Using dom-to-image to capture the element
   domtoimage
-    .toPng(trackDiv)
+    .toPng(trackDiv, {width: 1000})
     .then(function (dataUrl) {
       // Create a temporary anchor element to download the image
       const a = document.createElement("a");
