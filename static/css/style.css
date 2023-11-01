@@ -508,7 +508,7 @@ ul.styled-grid {
 
 .track-container {
   position: relative;
-  margin: 10%;
+  /* margin: 10%; */
   display: flex;
   justify-content: center;
 }
@@ -517,14 +517,35 @@ ul.styled-grid {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
   background-color: var(--grey);
   /* outline: solid 1px var(--light-grey); */
+  /* margin: 0; */
   padding: var(--spacing-xxs);
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: auto;
+  justify-content: center;
+  display: block;
+  top: 0;
 }
 
 .track__info__group {
   padding: var(--spacing-xs);
+  position: relative;
+  z-index: 2;
+  margin: 0;
 }
+
 .track__name {
   margin: 0 auto 0 auto;
+}
+
+.track__img {
+  padding:0;
+  position: relative;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
 }
 
 .track__artists {
@@ -535,6 +556,7 @@ ul.styled-grid {
 
 .track__artist__name {
   padding: var(--spacing-xxs);
+  display: block;
   width: 100%;
   text-align: center;
   border: solid 0.05em var(--light-grey);
@@ -553,6 +575,10 @@ ul.styled-grid {
 .popularity-value {
   height: 10px;
   background-color: var(--light-grey);
+}
+#lilPlot>svg {
+  background-color: transparent;
+  color: var(--white);
 }
 
 #downloadButton {
@@ -589,7 +615,7 @@ ul.styled-grid {
   }
   .track__item {
     grid-template-columns: 20px 4fr 2fr minmax(60px, 1fr) !important;
-    padding: var(--spacing-xs) var(--spacing-sm) !important;
+    /* padding: var(--spacing-xs) var(--spacing-sm) !important; */
   }
   .track__item__album {
     display: block !important;
