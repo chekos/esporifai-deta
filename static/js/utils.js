@@ -9,7 +9,7 @@ function captureAndDownload() {
       style: {
         transform: "scale(2)",
         transformOrigin: "top left"
-    })
+    }})
     .then(function (dataUrl) {
       // Create a temporary anchor element to download the image
       const a = document.createElement("a");
