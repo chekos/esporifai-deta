@@ -576,7 +576,7 @@ ul.styled-grid {
   height: 10px;
   background-color: var(--light-grey);
 }
-#lilPlot>svg {
+#popularityPlot>svg {
   background-color: transparent;
   color: var(--white);
 }
