@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from constants import CLIENT_ID, REDIRECT_URI, BASE_URL, SCOPE
 from data import (
+    get_audio_features_by_id,
     get_auth_code,
     get_refreshed_token,
     retrieve_token,
@@ -250,5 +251,6 @@ async def get_html_recently_played(request: Request, limit: int = 50):
 @app.get("/track/{trackid}", response_class=HTMLResponse)
 async def get_html_track_by_id(request: Request, trackid: str):
     track = get_track_by_id(trackid=trackid)
-    context = {"request": request, "track": track}
+    audio_features = get_audio_features_by_id(trackid=trackid)
+    context = {"request": request, "track": track, "audio_features": audio_features}
     return templates.TemplateResponse("track.html.jinja", context)

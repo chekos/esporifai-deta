@@ -178,6 +178,21 @@ def get_audio_features_from_ids(ids: str):
         return None
 
 
+def get_audio_features_by_id(trackid: str):
+    url = f"{API_BASE_URL}/audio-features/{trackid}"
+    access_token = retrieve_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    res = requests.get(url=url, headers=headers)
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return None
+
+
 def get_user_recently_played(limit: int = 50):
     url = f"{API_BASE_URL}/me/player/recently-played"
     access_token = retrieve_token()
