@@ -67,3 +67,68 @@ function slugify(str) {
     .replace(/\s+/g, "-") // replace spaces with hyphens
     .replace(/-+/g, "-"); // remove consecutive hyphens
 }
+
+function createRadarChart(selector, audioFeatures, size = 16) {
+  const features = [
+    "acousticness",
+    "danceability",
+    "energy",
+    "liveness",
+    "speechiness",
+    "valence",
+  ];
+  const svgSize = size + 2;
+  const width = size;
+  const height = size;
+  const radius = Math.min(width, height) / 2;
+
+  const svg = d3
+    .select(selector)
+    .append("svg")
+    .attr("width", svgSize)
+    .attr("height", svgSize)
+    .append("g")
+    .attr("transform", `translate(${svgSize / 2},${svgSize / 2})`);
+
+  const scale = d3.scaleLinear().domain([0, 1]).range([0, radius]);
+
+  const angleSlice = (Math.PI * 2) / features.length;
+
+  const calculatePosition = (value, i) => {
+    return {
+      x: scale(value) * Math.cos(angleSlice * i - Math.PI / 2),
+      y: scale(value) * Math.sin(angleSlice * i - Math.PI / 2),
+    };
+  };
+
+  const coordinates = features.map((feature, i) =>
+    calculatePosition(audioFeatures[feature], i)
+  );
+
+  // Determine color based on mode
+  const color = audioFeatures.mode === 1 ? "#ff9ca7" : "#b3b3b3"; // Bright pink for major, dark gray for minor
+
+  // Draw an outer circle
+  svg
+    .append("circle")
+    .attr("cx", 0)
+    .attr("cy", 0)
+    .attr("r", radius)
+    .attr("id", "radarOutline")
+    .style("stroke", color)
+
+  svg
+    .append("path")
+    .datum(coordinates)
+    .attr(
+      "d",
+      d3
+        .line()
+        .x((d) => d.x)
+        .y((d) => d.y)
+        .curve(d3.curveCardinalClosed)
+    )
+    .attr("id", "radarBlob")
+    .style("fill", color);
+
+}

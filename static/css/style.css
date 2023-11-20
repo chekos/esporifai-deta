@@ -429,9 +429,8 @@ ul.styled-grid {
 .track__inner {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
   background-color: var(--grey);
-  /* outline: solid 1px var(--light-grey); */
-  /* margin: 0; */
-  padding: var(--spacing-xxs);
+  padding: var(--spacing-md);
+  border-radius: var(--spacing-xs);
   position: relative;
   overflow: hidden;
   width: 300px;
@@ -459,6 +458,7 @@ ul.styled-grid {
   height: auto;
   top: 0;
   left: 0;
+  border-radius: var(--spacing-xxs);
 }
 
 .track__artists {
@@ -501,6 +501,30 @@ ul.styled-grid {
   min-width: 40%;
   justify-content: center;
   align-items: center;
+}
+
+.track__radar_chart {
+  display: flex;
+  align-items: center;
+  font-size: var(--fz-sm);
+}
+
+.track__radar_chart svg {
+  margin: var(--spacing-xxs);
+}
+
+#radarBlob {
+  fill-opacity: 0.7;
+}
+
+#radarOutline {
+  stroke-width: 0.5px;
+  stroke-opacity: 0.3;
+  fill: none;
+}
+
+#esporifaiText {
+  padding-bottom: var(--spacing-xxs);
 }
 
 @media screen and (min-width: 768px) {
